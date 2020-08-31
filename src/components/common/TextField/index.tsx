@@ -10,7 +10,7 @@ export const TextField: React.FC<TextFieldProps & FieldHookConfig<string>> = (pr
       {...field}
       {...props}
       error={meta?.touched && !!meta?.error}
-      helperText={meta?.touched && meta?.error ? meta?.error : ""}
+      helperText={meta?.touched && meta?.error ? meta?.error : ''}
     />
   )
 }

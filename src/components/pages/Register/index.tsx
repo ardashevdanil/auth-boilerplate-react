@@ -2,7 +2,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Formik, Form, FormikHelpers } from 'formik'
-import { Link as RouterLink } from 'react-router-dom'
+import { Link as RouterLink, useHistory } from 'react-router-dom'
 import { css, jsx } from '@emotion/core'
 import {
   Avatar,
@@ -49,6 +49,7 @@ const linkStyles = css`
 
 export const Register: React.FC = () => {
   const dispatch = useDispatch()
+  const history = useHistory()
   const isLoading = useSelector((state: RootState) => state.loading.auth?.register)
   const onSubmit = async (
     values: RegisterFormValues,
@@ -56,6 +57,7 @@ export const Register: React.FC = () => {
   ): Promise<void> => {
     try {
       await dispatch(register(values))
+      history.push(Routes.login)
     } catch (err) {
       const errors: RegisterFormErrors = {
         login: 'Login is already taken',
@@ -72,8 +74,10 @@ export const Register: React.FC = () => {
     if (!values.password) errors.password = 'Password is required'
     if (!values.confirmation) errors.confirmation = 'Password is required'
     if (values.password?.length < 8) errors.password = 'Password must be at least 8 characters'
-    if (values.confirmation?.length < 8) errors.confirmation = 'Password must be at least 8 characters'
-    if (values.password !== values.confirmation)  errors.confirmation = 'Password and cofirmation must match'
+    if (values.confirmation?.length < 8)
+      errors.confirmation = 'Password must be at least 8 characters'
+    if (values.password !== values.confirmation)
+      errors.confirmation = 'Password and cofirmation must match'
 
     return errors;
   }

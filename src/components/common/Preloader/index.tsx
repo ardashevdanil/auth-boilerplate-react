@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React from 'react'
 import { css, jsx } from '@emotion/core'
-import { CircularProgress } from "@material-ui/core"
+import { CircularProgress } from '@material-ui/core'
 
 const wrapperStyle = css`
   height: 100vh;

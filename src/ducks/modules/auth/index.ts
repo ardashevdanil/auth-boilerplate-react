@@ -77,23 +77,6 @@ export const register = (
   }
 }
 
-export const getProfile = (): AppThunk => async (dispatch) => {
-  try {
-    dispatch(getProfileRequest())
-
-    const res = await axios.get('/user')
-
-    dispatch(getProfileSuccess(res.data))
-  } catch (err) {
-    console.log(err)
-    dispatch(getProfileFailure(err.toString()))
-
-    if (err.response?.status === 401) {
-      dispatch(logout())
-    }
-  }
-}
-
 export const login = (
   values: LoginFormValues,
 ): AppThunk => async (dispatch) => {
@@ -123,5 +106,22 @@ export const logout = (): AppThunk => async(dispatch) => {
     dispatch(logoutSuccess())
   } catch (err) {
     dispatch(logoutFailure(err.toString()))
+  }
+}
+
+export const getProfile = (): AppThunk => async (dispatch) => {
+  try {
+    dispatch(getProfileRequest())
+
+    const res = await axios.get('/user')
+
+    dispatch(getProfileSuccess(res.data))
+  } catch (err) {
+    console.log(err)
+    dispatch(getProfileFailure(err.toString()))
+
+    if (err.response?.status === 401) {
+      dispatch(logout())
+    }
   }
 }
